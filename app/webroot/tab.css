@@ -1,0 +1,60 @@
+#toolbarwrap { 
+	/*font:normal 15px/1.2em "Arial", Gadget, sans-serif;*/
+    font-family: 'Droid Sans', sans-serif;
+	width: 800px;
+	height: 100px;
+	margin: 0 auto; 
+	padding: 10px;
+	position: relative; 
+}
+ul.navigation { 
+	margin: 0; 
+	padding: 0; 
+	list-style-type: none; 
+}
+ul.navigation li { 
+	float: left; 
+	padding: 0 0 0 55px; 
+}
+ul.navigation li a { 
+	float: left; 
+	line-height: 38px; 
+	border-top: 5px solid #202020; 
+	color:black; 
+	text-decoration: none; 
+}
+ul.navigation li a:hover { 
+	text-decoration: none; 
+	border-top: 5px solid #606060; 
+	color: blue; 
+}
+ul.navigation li.active { color:blue; }
+ul.navigation li.inactive {text-decoration:none;color:#fff; }
+#frame { 
+	overflow: hidden; 
+	margin: 0 auto; 
+	width:  80%;
+	border-top: 1px solid #606060;
+	//border-left: 1px solid #606060;
+	//border-right: 1px solid #606060;
+	//border-bottom: 1px solid #606060;
+}
+#scroller { 
+	width: 70%;
+	margin: 0 auto; 
+	overflow: hidden; 
+}
+#content { width: 4680px; }
+.section { 
+	width: 780px;
+	float: left; 
+	padding: 5px; 
+	text-align: center;  
+}
+
+.col1{
+	color:black;
+	font-size:15px;
+}
+
+

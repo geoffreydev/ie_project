@@ -1,0 +1,18 @@
+<?php
+	App::uses('AppController', 'Controller');
+
+     class PhotosController extends AppController{
+	 
+		
+		
+	public function index(){
+		//$this->Photo->recursive = 0;
+		//$this->set('photos',$this->paginate());
+
+	}
+	
+	
+	public function display($id=null){
+       // $this->set('content', $this->Photo->findByPage($photo, 'content'));
+    }
+}

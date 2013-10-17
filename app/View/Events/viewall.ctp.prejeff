@@ -1,0 +1,143 @@
+<?php $this->layout = 'default'; ?>
+<?php echo $this->Html->script('sortable.js');?>
+
+    <div class="umtop">
+
+        <?php echo $this->Element('eventdash'); ?>
+    <?php // echo $this->Session->flash(); ?>
+    <?php //echo $this->element('dashboard'); ?>
+    <div class="um_box_up"></div>
+    <div class="um_box_mid">
+        <div class="um_box_mid_content">
+            <div class="um_box_mid_content_top">
+                <span class="umstyle1"><?php
+                    //echo __('Customers');
+
+                    if($id == 0)
+                    {
+                        echo __('All Bookings');
+                    }
+                    elseif($id == 1)
+                    {
+                        echo __('Pending Bookings');
+                    }
+                    elseif($id == 2)
+                    {
+                        echo __('Comfirmed Bookings');
+                    }
+                    elseif($id == 3)
+                    {
+                        echo __('Cancelled Bookings');
+                    }
+                    elseif($id == 4)
+                    {
+                        echo __('Completed Bookings');
+                    }
+                    else
+                    {
+                        echo __('All Bookings');
+                    }
+                    ?>
+                    </span>
+                <span class="umstyle2" style="float:right"><?php echo $this->Html->link(__("",true),"/customers/add") ?></span>
+                <div style="clear:both"></div>
+            </div>
+
+            <div class="umhr"></div>
+        <div id="products">
+
+
+         <!-- <table id="data" style="text-align:left; margin:auto; width:800px;> -->
+            <table cellspacing="0" cellpadding="5" width="100%" border="0" >
+         <thead>
+         <tr style="text-align:left;">
+         <th style="text-align: left;">Customer</th>
+         <th style="text-align: left;">Booking Type</th>
+         <th style="text-align: left;">Dropoff Time</th>
+         <th style="text-align: left;">Comments</th>
+         <th style="text-align: left;">Status</th>
+         <th style="text-align: left;">Actions</th>
+         </tr>
+         </thead>
+         <tbody>
+		 <?php
+         if (!empty($events)) {
+         $sl=0;
+         $num=2;
+		 foreach($events as $event) {
+             if ($num % 2 != 0)
+             {
+                 $trtype='tr_alt';
+             } else {
+                 $trtype='tr_std';
+             }
+             if ($id == 0 && $event['Event']['proplanning'] == 1 || $id == 0 && $event['Event']['proplanning'] == 4 || $id == 0 && $event['Event']['proplanning'] == 2 || $id ==  $event['Event']['proplanning'] ) {
+             $sl++;
+             ?>
+			 <tr class=<?php echo $trtype; ?>>
+                 <td><?php
+                     echo $this->Html->link($event['User']['first_name'].' '.$event['User']['last_name'],array('controller'=>'customers','action'=>'view', $event['Event']['event_userid']));
+//                     echo $event['User']['first_name']; echo " "; echo $event['User']['last_name'];
+                     ?></td>
+                 <td><?php
+                     //echo $this->Html->link($event['Event']['event_theme'],array('controller'=>'events','action'=>'edit', $event['Event']['id']));
+                     echo $event['Event']['event_theme'];
+                     ?></td>
+                 <td><?php
+                     //echo substr( $event['Event']['start'], 0, 5);
+                     echo $event['Event']['hour'].":".$event['Event']['minute'];
+                     ?></td>
+                 <td>Show/Hide</td>
+                 <td><?php
+                 if ($event['Event']['proplanning'] == 1) {
+                        echo "Pending";
+                 } else if ($event['Event']['proplanning'] == 2) {
+                         echo "Confirmed";
+                 } else if ($event['Event']['proplanning'] == 3) {
+                         echo "Cancelled";
+                 } else if ($event['Event']['proplanning'] == 4) {
+                         echo "Completed";
+                 } else if ($event['Event']['proplanning'] == 5) {
+                     echo "DNA";
+                 }
+                    ?>
+                 </td>
+                 <td><?php
+                     echo $this->Html->link('View/Update Booking', array("controller"=>"events","action"=>"edit", $event['Event']['id'],'?' => array('goto' => $event['Event']['proplanning'])),array('class' => 'buttoned'));
+                     ?>&nbsp;&nbsp;&nbsp;
+
+                     <?php
+                     if ($event['Event']['proplanning'] == 1 || $event['Event']['proplanning'] == 2 ) {
+                     echo $this->Html->link('Cancel Booking', array("controller"=>"events","action"=>"delete", $event['Event']['id']),array('class' => 'buttoned'));
+                    } else if ($event['Event']['proplanning'] == 4) {
+                         echo $this->Html->link('Clone Booking', array("controller"=>"events","action"=>"copy", $event['Event']['id']),array('class' => 'buttoned'));
+                     }
+                     ?>&nbsp;&nbsp;&nbsp;
+                     <?php
+                     if ($event['Event']['proplanning'] == 2) {
+                         echo $this->Html->link('Complete Booking', array("controller"=>"events","action"=>"complete", $event['Event']['id']),array('class' => 'buttoned'));
+                     } else if ($event['Event']['proplanning'] == 1) {
+                         echo $this->Html->link('Confirm Booking', array("controller"=>"events","action"=>"confirm", $event['Event']['id']),array('class' => 'buttoned'));
+                     } else {
+                         echo $this->Html->link('Bring Back Booking', array("controller"=>"events","action"=>"confirm", $event['Event']['id']),array('class' => 'buttoned'));
+                     }
+                     ?>&nbsp;&nbsp;&nbsp;
+                     <?php
+                    if ($event['Event']['proplanning'] == 2) {
+                        echo $this->Html->link('DNA', array("controller"=>"events","action"=>"delete", $event['Event']['id']),array('class' => 'buttoned'));
+                    }
+                     ?>
+                     </td>
+
+            </tr>
+        <?php
+             $num++;
+             }
+        }
+         } else {
+             echo "<tr><td colspan=10><br/><br/>No Bookings Exist!</td></tr>";
+         }
+		?>
+		 </tbody>
+		 </table>
+        </div></div></div></div>
